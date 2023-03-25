@@ -1,6 +1,0 @@
-to read a local json file ....put the file inside the public folder 
-then do the fetch
-
-
-if the erroe was SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON ....
-then the respone of the fetching is html or XML file XXXX
