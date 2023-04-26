@@ -16,3 +16,5 @@ pages folder contain componets and inside these componets we have another compon
 
 7) env file contain a senstive data like our api key .... we dont want to share it to anyone
 /// we used it in fetchData.js funciton
+
+8) we put the env file ... outside the with packages files

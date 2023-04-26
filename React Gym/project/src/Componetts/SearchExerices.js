@@ -6,17 +6,12 @@ import { exerciseOptions, fetchData } from '../utils/fetchData'
 function SearchExerices() {
   const [search , setSearch] = useState("")
 
-  // const handleSearch = async () =>{
-  //   if(search){
-  //     const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPart/%7BbodyPart%7D' , exerciseOptions)
-  //     console.log(exercisesData)
-  //   }
-  // }
-  useEffect(()=>{
-    fetch("https://exercisedb.p.rapidapi.com/exercises/bodyPartList")
-    .then(res => res.json())
-    .then((data)=> setSearch(data) )
-  },[])
+  const handleSearch = async () =>{
+    if(search){
+      const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises' , exerciseOptions)
+      console.log(exercisesData)
+    }
+  }
 
 
 
@@ -48,7 +43,7 @@ function SearchExerices() {
           placeholder="Search Exercies"
           type="text"
         />
-        <Button  className="search-btn" sx={{ bgcolor: '#FF2625', color: '#fff', textTransform: 'none', width: { lg: '173px', xs: '80px' }, height: '56px', position: 'absolute', right: '0px', fontSize: { lg: '20px', xs: '14px' } }} >
+        <Button onClick={handleSearch}  className="search-btn" sx={{ bgcolor: '#FF2625', color: '#fff', textTransform: 'none', width: { lg: '173px', xs: '80px' }, height: '56px', position: 'absolute', right: '0px', fontSize: { lg: '20px', xs: '14px' } }} >
           Search
         </Button>
       </Box>
