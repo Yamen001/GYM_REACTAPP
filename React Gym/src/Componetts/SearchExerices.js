@@ -2,14 +2,39 @@ import { Box, Button, Stack, TextField, Typography } from '@mui/material'
 import { height } from '@mui/system'
 import React, { useEffect, useState } from 'react'
 import { exerciseOptions, fetchData } from '../utils/fetchData'
+import HorziontalScrollbar from './HorziontalScrollbar'
 
 function SearchExerices() {
-  const [search , setSearch] = useState("")
+  const [search, setSearch] = useState("")
+  const [exercises, setExercises] = useState([])
+  const [bodyParts, setBodayParts] = useState([])
 
-  const handleSearch = async () =>{
-    if(search){
-      const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises' , exerciseOptions)
+
+  useEffect(() => {
+    //this for the HorziontalScrollbar
+    const fetchexercisesData = async () => {
+      const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions)
+      // setBodayParts(['all' , ...bodyPartsData])
+    }
+    fetchexercisesData()
+    // console.log(bodyParts) // []
+    // console.log(exercises) // []
+  }, [])
+
+
+  const handleSearch = async () => {
+    if (search) {
+      const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions)
       console.log(exercisesData)
+      const searchedExercises = exercisesData.filter((exercise) =>
+        exercise.name
+        // exercise.name.toLowerCase().includes(search) ||
+        // exercise.target.toLowerCase().includes(search) ||
+        // exercise.euipment.toLowerCase().includes(search) ||
+        // exercise.bodyPart.toLowerCase().includes(search)
+      )
+      setSearch("")
+      setExercises(searchedExercises)
     }
   }
 
@@ -39,13 +64,16 @@ function SearchExerices() {
         }}
           height="76px"
           value={search}
-          onChange={(e) => setSearch(e.target.value.toLowerCase()) }
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
           placeholder="Search Exercies"
           type="text"
         />
-        <Button onClick={handleSearch}  className="search-btn" sx={{ bgcolor: '#FF2625', color: '#fff', textTransform: 'none', width: { lg: '173px', xs: '80px' }, height: '56px', position: 'absolute', right: '0px', fontSize: { lg: '20px', xs: '14px' } }} >
+        <Button onClick={handleSearch} className="search-btn" sx={{ bgcolor: '#FF2625', color: '#fff', textTransform: 'none', width: { lg: '173px', xs: '80px' }, height: '56px', position: 'absolute', right: '0px', fontSize: { lg: '20px', xs: '14px' } }} >
           Search
         </Button>
+      </Box>
+      <Box sx={{ position: "relative", widht: "100%", p: "20px" }}>
+        <HorziontalScrollbar data={bodyParts} />
       </Box>
     </Stack>
 

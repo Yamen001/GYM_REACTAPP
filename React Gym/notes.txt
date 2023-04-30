@@ -18,3 +18,6 @@ pages folder contain componets and inside these componets we have another compon
 /// we used it in fetchData.js funciton
 
 8) we put the env file ... outside the with packages files
+
+9) setstate asy function ... if you console.log(state) after you setstate may not work ... state may have not been updated yet 
+and get back empyt value ... you know the console excuted first
