@@ -4,17 +4,17 @@ import React, { useEffect, useState } from 'react'
 import { exerciseOptions, fetchData } from '../utils/fetchData'
 import HorziontalScrollbar from './HorziontalScrollbar'
 
-function SearchExerices() {
+function SearchExerices({exercises , setBodyPart , bodyPart , setExercises}) {
   const [search, setSearch] = useState("")
-  const [exercises, setExercises] = useState([])
-  const [bodyParts, setBodayParts] = useState([])
+  const [bodyParts, setBodyParts] = useState("")
+
 
 
   useEffect(() => {
     //this for the HorziontalScrollbar
     const fetchexercisesData = async () => {
       const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions)
-      // setBodayParts(['all' , ...bodyPartsData])
+      setBodyParts(['all' , ...bodyPartsData])
     }
     fetchexercisesData()
     // console.log(bodyParts) // []
@@ -73,7 +73,7 @@ function SearchExerices() {
         </Button>
       </Box>
       <Box sx={{ position: "relative", widht: "100%", p: "20px" }}>
-        <HorziontalScrollbar data={bodyParts} />
+        {bodyParts && <HorziontalScrollbar data={bodyParts} bodyPart={bodyPart} setBodyPart={setBodyPart} />}
       </Box>
     </Stack>
 
